@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KolekcjonerstwoWS.EditItemPage"
+             Title="EditItemPage">
+    <VerticalStackLayout Padding="10">
+        <Label 
+            Text="Edytuj element"
+            FontSize="30"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Label Text="Nazwa" Grid.Column="0" Grid.Row="0" Margin="0,2,0,2"/>
+            <Entry x:Name="inputName" BindingContext="{Binding Name}" Grid.Column="0" Grid.Row="1" Margin="0,5"/>
+
+            <Label Text="Cena" Grid.Column="1" Grid.Row="0" Margin="20,2"/>
+            <Entry x:Name="inputPrice" BindingContext="{Binding Price}" Grid.Column="1" Grid.Row="1" Margin="20,5"/>
+
+            <Label Text="Ocena" Grid.Column="2" Grid.Row="0" Margin="0,2"/>
+            <Entry x:Name="inputRate" BindingContext="{Binding Rate}" Grid.Column="2" Grid.Row="1" Margin="0,5"/>
+        </Grid>
+        
+        <Label Text="Opis"/>
+        <Entry x:Name="inputDescription" BindingContext="{Binding Description}"/>
+        <Label Text="Czy na sprzedaż"/>
+        <Switch x:Name="inputToSell" IsToggled="{Binding ToSell}"/>
+        
+        <Button Clicked="OnSaveEditClicked" Text="Edytuj"/>
+    </VerticalStackLayout>
+</ContentPage>

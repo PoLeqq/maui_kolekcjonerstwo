@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KolekcjonerstwoWS.CollectionPage"
+             Title="CollectionPage">
+    <ScrollView>
+        <StackLayout>
+            <Label 
+                Text="{Binding CollectionName}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                FontSize="40"
+                FontAttributes="Bold"/>
+
+            <StackLayout Margin="20,0,20,10">
+                <Label Text="Nowy przedmiot" FontSize="20" Margin="0,10"/>
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Label Text="Nazwa" Grid.Column="0" Grid.Row="0" Margin="0,0,10,0"/>
+                    <Entry x:Name="inputItemName" Placeholder="Nazwa przedmiotu" Grid.Column="0" Grid.Row="1" Margin="0,8,10,10"/>
+
+                    <Label Text="Cena" Grid.Column="1" Grid.Row="0" Margin="10,0"/>
+                    <Entry x:Name="inputItemPrice" Placeholder="Cena" Keyboard="Numeric" Grid.Column="1" Grid.Row="1" Margin="10,8,10,10"/>
+
+                    <Label Text="Ocena (0-10)" Grid.Column="2" Grid.Row="0" Margin="10,0,0,0"/>
+                    <Entry x:Name="inputItemRate" Placeholder="Ocena (0-10)" Keyboard="Numeric" Grid.Column="2" Grid.Row="1" Margin="10,8,0,10"/>
+                </Grid>
+                <Label Text="Opis"/>
+                <Entry x:Name="inputItemDescription" Placeholder="Opis" Margin="0,5,0,10"/>
+                <Button Text="Dodaj" Clicked="OnAddItemButtonClicked" BackgroundColor="Green"/>
+            </StackLayout>
+
+            <Grid Margin="20,0,20,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Text="Podsumowanie" Clicked="OnSummaryButtonClicked" Margin="0,0,20,0"/>
+                <Button Grid.Column="1" Text="Import" Clicked="OnImportButtonClicked" Margin="20,0"/>
+                <Button Grid.Column="2" Text="Eksport" Clicked="OnExportButtonClicked" Margin="20,0,0,0"/>
+            </Grid>
+
+            <StackLayout Margin="20">
+                <Grid BackgroundColor="#a9f" Padding="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" FontAttributes="Bold" Text="Nazwa" />
+                    <Label Grid.Column="1" FontAttributes="Bold" Text="Cena" />
+                    <Label Grid.Column="2" FontAttributes="Bold" Text="Ocena (0-10)" />
+                    <Label Grid.Column="3" FontAttributes="Bold" Text="Sprzedaj" />
+                    <Label Grid.Column="4" FontAttributes="Bold" Text="Edytuj" />
+                    <Label Grid.Column="5" FontAttributes="Bold" Text="Usuń" />
+                </Grid>
+
+                <CollectionView ItemsSource="{Binding Collection.Items}" x:Name="collectionItems">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="1"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            
+                            <Grid Padding="0,8">
+                                <Grid.Triggers>
+                                    <DataTrigger TargetType="Grid" Binding="{Binding Sold}" Value="True">
+                                        <Setter Property="BackgroundColor" Value="#ccc" />
+                                    </DataTrigger>
+                                    
+                                </Grid.Triggers>
+
+                                
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0" Text="{Binding Name}" />
+                                <Label Grid.Column="1" Text="{Binding Price}" />
+                                <Label Grid.Column="2" Text="{Binding Rate}" />
+
+
+                                <Button Text="Sprzedaj" 
+                                    Clicked="OnSellButtonClicked" 
+                                    CommandParameter="{Binding Id}"
+                                        Grid.Column="3" Margin="20,0">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding Sold}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                            <Setter Property="BackgroundColor" Value="#999"/>
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button Grid.Column="4" Text="Edytuj" Clicked="OnItemEditButtonClicked" CommandParameter="{Binding Id}" Margin="20,0"/>
+                                <Button Grid.Column="5" Text="Usuń" BackgroundColor="Red" Clicked="OnItemRemoveClicked" CommandParameter="{Binding Id}" Margin="20,0"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

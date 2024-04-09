@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KolekcjonerstwoWS.MainPage">
+
+    <StackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <StackLayout Grid.Column="0" Padding="10">
+                <Label Text="Dodaj kolekcję" FontSize="30" Margin="0,20"/>
+
+                <Entry x:Name="inputCollectionName" Placeholder="Nazwa" Margin="0,5" />
+                <Button Text="Dodaj" Clicked="OnAddCollectionButtonClicked" Margin="0,5" BackgroundColor="Green"/>
+            </StackLayout>
+
+            <ListView x:Name="listView" Grid.Column="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="5" Padding="5" VerticalOptions="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <Label Grid.Column="0" Text="{Binding Name}" FontSize="20"/>
+                                <Button Grid.Column="1" Text="Pokaż kolekcję" Clicked="OnShowCollectionButtonClicked" Margin="10,0"/>
+                                <Button Grid.Column="2" Text="Usuń" Clicked="OnRemoveCollectionButtonClicked" BackgroundColor="Red" Margin="10,0"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </StackLayout>
+
+</ContentPage>
